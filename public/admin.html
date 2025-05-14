@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Administrador</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4f8;
+    }
+    .modern-navbar {
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .modern-brand {
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    .modern-nav-link {
+      color: #e6f0ff !important;
+      font-weight: 400;
+    }
+    .modern-nav-link:hover {
+      color: #ffffff !important;
+    }
+    .modern-hero {
+      background: linear-gradient(180deg, #007bff, #f0f4f8);
+      color: white;
+      padding: 60px 0;
+    }
+    .modern-title {
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+    .modern-subtitle {
+      font-weight: 300;
+      font-size: 1.2rem;
+    }
+    .modern-icon {
+      color: #ffffff;
+    }
+    .modern-card {
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+      transition: transform 0.2s;
+      margin-bottom: 20px;
+    }
+    .modern-card:hover {
+      transform: translateY(-5px);
+    }
+    .modern-admin-header {
+      background-color: #007bff;
+      color: white;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+    .modern-card-title {
+      font-weight: 600;
+    }
+    .modern-input {
+      border-radius: 10px;
+      border: 1px solid #007bff;
+    }
+    .modern-btn {
+      border-radius: 10px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    .modern-btn:hover {
+      background-color: #0056b3;
+    }
+    .modern-footer {
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      padding: 20px 0;
+    }
+    .chat-container {
+      background-color: #f5faff;
+      height: 40vh;
+      overflow-y: auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 123, 255, 0.1);
+    }
+    .chat-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .chat-container::-webkit-scrollbar-thumb {
+      background-color: #007bff;
+      border-radius: 10px;
+    }
+    .message {
+      max-width: 70%;
+      margin-bottom: 15px;
+      padding: 12px 15px;
+      border-radius: 15px;
+      position: relative;
+      word-wrap: break-word;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+    .message.sent {
+      margin-left: auto;
+      background-color: #007bff;
+      color: white;
+      border-top-right-radius: 0;
+    }
+    .message.received {
+      margin-right: auto;
+      background-color: white;
+      color: #007bff;
+      border: 1px solid #007bff;
+      border-top-left-radius: 0;
+    }
+    .message-sender {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .message.sent .message-sender {
+      color: #e6f0ff;
+    }
+    .message.received .message-sender {
+      color: #0056b3;
+    }
+    .message-time {
+      font-size: 0.7rem;
+      color: #b3d4ff;
+      display: block;
+      text-align: right;
+      margin-top: 5px;
+    }
+    .message.received .message-time {
+      text-align: left;
+      color: #007bff;
+    }
+    .technician-select {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .visit-datetime {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .visible {
+      display: block !important;
+    }
+    .nav-tabs .nav-link {
+      color: #007bff;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark modern-navbar">
+    <div class="container">
+      <a class="navbar-brand modern-brand" href="admin.html">Suporte Técnico</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto" id="navLinks"></ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="py-5 text-center modern-hero">
+    <div class="container">
+      <i class="bi bi-shield-lock display-4 mb-3 modern-icon"></i>
+      <h1 class="display-4 modern-title">Área do Administrador</h1>
+      <p class="lead modern-subtitle">Gerencie solicitações, usuários e técnicos.</p>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div id="alertBox" class="mb-4"></div>
+
+      <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">Solicitações Pendentes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="add-tech-tab" data-bs-toggle="tab" data-bs-target="#add-tech" type="button" role="tab">Adicionar Técnico</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="add-admin-tab" data-bs-toggle="tab" data-bs-target="#add-admin" type="button" role="tab">Adicionar Administrador</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="manage-users-tab" data-bs-toggle="tab" data-bs-target="#manage-users" type="button" role="tab">Gerenciar Usuários</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="adminTabContent">
+        <!-- Solicitações Pendentes -->
+        <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+          <div class="card modern-card mb-4">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Solicitações Pendentes</h3>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Produto</th>
+                    <th>Problema</th>
+                    <th>Status</th>
+                    <th>Técnico</th>
+                    <th>Visita Agendada</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="requestsTable"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card modern-card mb-4 hidden" id="requestDetails">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Detalhes da Solicitação</h3>
+            </div>
+            <div class="card-body">
+              <h5>Dados do Cliente</h5>
+              <p><strong>Nome:</strong> <span id="detailNome"></span></p>
+              <p><strong>E-mail:</strong> <span id="detailEmail"></span></p>
+              <p><strong>Idade:</strong> <span id="detailIdade"></span></p>
+              <p><strong>Sexo:</strong> <span id="detailSexo"></span></p>
+              <p><strong>Bairro:</strong> <span id="detailBairro"></span></p>
+              <p><strong>Número da Casa:</strong> <span id="detailNumeroCasa"></span></p>
+              <p><strong>Celular:</strong> <span id="detailCelular"></span></p>
+              <p><strong>Produto:</strong> <span id="detailProduto"></span></p>
+              <p><strong>Problema:</strong> <span id="detailProblema"></span></p>
+              <p><strong>Status:</strong> <span id="detailStatus"></span></p>
+              <p><strong>Técnico Atribuído:</strong> <span id="detailTechnician"></span></p>
+              <p><strong>Visita Agendada:</strong> <span id="detailScheduledVisit"></span></p>
+            </div>
+          </div>
+
+          <div class="card modern-card mb-4 hidden" id="chatHistorySection">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Histórico de Chat</h3>
+            </div>
+            <div class="card-body">
+              <div class="chat-container" id="chatHistoryBox"></div>
+            </div>
+          </div>
+
+          <div class="card modern-card mb-4 hidden" id="adminChatSection">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Chat com Cliente</h3>
+            </div>
+            <div class="card-body">
+              <div class="chat-container" id="adminChatBox"></div>
+              <form id="adminChatForm" class="row g-3 mt-2">
+                <div class="col-md-10">
+                  <input type="text" class="form-control modern-input" id="adminChatMessage" placeholder="Digite sua mensagem" required>
+                </div>
+                <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary modern-btn w-100">Enviar</button>
+                </div>
+              </form>
+              <button class="btn btn-info modern-btn mt-2" id="requestInfoBtn">Solicitar Mais Informações</button>
+            </div>
+          </div>
+
+          <div class="card modern-card mb-4 hidden" id="assignTechnicianSection">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Designar Técnico</h3>
+            </div>
+            <div class="card-body">
+              <select class="form-select technician-select" id="technicianSelect"></select>
+              <input type="datetime-local" class="form-control visit-datetime mt-2" id="visitDateTime">
+              <button class="btn btn-success modern-btn mt-2 w-100" id="assignBtn">Designar Técnico</button>
+            </div>
+          </div>
+
+          <!-- Modal para responder solicitação -->
+          <div class="modal fade" id="respondModal" tabindex="-1" aria-labelledby="respondModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="respondModalLabel">Responder Solicitação</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="respondForm">
+                    <div class="mb-3">
+                      <label for="respondStatus" class="form-label">Status:</label>
+                      <select class="form-select" id="respondStatus" required>
+                        <option value="pending">Pendente</option>
+                        <option value="in_progress">Em Andamento</option>
+                        <option value="resolved">Resolvido</option>
+                        <option value="needs_admin">Precisa de Admin</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="respondTechnician" class="form-label">Técnico Atribuído:</label>
+                      <select class="form-select" id="respondTechnician">
+                        <option value="">Nenhum</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="respondScheduledVisit" class="form-label">Visita Agendada:</label>
+                      <input type="datetime-local" class="form-control" id="respondScheduledVisit">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-primary" id="saveResponseBtn">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Adicionar Técnico -->
+        <div class="tab-pane fade" id="add-tech" role="tabpanel" aria-labelledby="add-tech-tab">
+          <div class="card modern-card mb-4">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Adicionar Técnico</h3>
+            </div>
+            <div class="card-body">
+              <form id="addTechnicianForm">
+                <div class="mb-3">
+                  <label for="techName" class="form-label">Nome:</label>
+                  <input type="text" class="form-control modern-input" id="techName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="techEmail" class="form-label">E-mail:</label>
+                  <input type="email" class="form-control modern-input" id="techEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label for="techPhone" class="form-label">Telefone:</label>
+                  <input type="text" class="form-control modern-input" id="techPhone" required>
+                </div>
+                <button type="submit" class="btn btn-success modern-btn w-100">Adicionar Técnico</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Adicionar Administrador -->
+        <div class="tab-pane fade" id="add-admin" role="tabpanel" aria-labelledby="add-admin-tab">
+          <div class="card modern-card mb-4">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Adicionar Administrador</h3>
+            </div>
+            <div class="card-body">
+              <form id="addAdminForm">
+                <div class="mb-3">
+                  <label for="adminUsername" class="form-label">Username:</label>
+                  <input type="text" class="form-control modern-input" id="adminUsername" required>
+                </div>
+                <div class="mb-3">
+                  <label for="adminEmail" class="form-label">E-mail:</label>
+                  <input type="email" class="form-control modern-input" id="adminEmail" required>
+                </div>
+                <div class="mb-3">
+                  <label for="adminPassword" class="form-label">Senha:</label>
+                  <input type="password" class="form-control modern-input" id="adminPassword" required>
+                </div>
+                <button type="submit" class="btn btn-success modern-btn w-100">Adicionar Administrador</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gerenciar Usuários -->
+        <div class="tab-pane fade" id="manage-users" role="tabpanel" aria-labelledby="manage-users-tab">
+          <div class="card modern-card mb-4">
+            <div class="card-header modern-admin-header">
+              <h3 class="mb-0 modern-card-title">Gerenciar Usuários</h3>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped" id="usersTable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>E-mail</th>
+                    <th>Administrador</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-3 text-center text-white modern-footer">
+    <div class="container">
+      <p class="mb-0">© 2025 Suporte Técnico. Todos os direitos reservados.</p>
+      <p class="mb-0">Contato: suporte@exemplo.com | +123 456 789</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+    const socket = io();
+    let selectedRequest = null;
+
+    if (!user || !user.id || !user.isAdmin) {
+      window.location.href = 'login.html';
+    }
+
+    function renderNavbar() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.innerHTML = `
+        <li class="nav-item"><a class="nav-link modern-nav-link active" href="admin.html">Admin</a></li>
+        <li class="nav-item"><button class="btn btn-outline-light modern-logout-btn" id="logoutBtn">Sair</button></li>
+      `;
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.removeItem('user');
+        localStorage.removeItem('currentRequestId');
+        window.location.href = 'login.html';
+      });
+    }
+
+    async function loadRequests() {
+      try {
+        const response = await fetch('/api/requests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user })
+        });
+        if (!response.ok) throw new Error('Erro na requisição de solicitações: ' + response.statusText);
+        const requests = await response.json();
+        const tbody = document.getElementById('requestsTable');
+        tbody.innerHTML = '';
+        if (requests.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8">Nenhuma solicitação pendente.</td></tr>';
+        } else {
+          requests.forEach(req => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${req.id}</td>
+              <td>${req.clientUsername || req.nome}</td>
+              <td>${req.produto}</td>
+              <td>${req.problema}</td>
+              <td>${req.status}</td>
+              <td>${req.technicianName || 'Não atribuído'}</td>
+              <td>${req.scheduledVisit ? new Date(req.scheduledVisit).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' }) : 'Não agendada'}</td>
+              <td>
+                <button class="btn btn-success btn-sm" onclick="openRespondModal('${req.id}', ${JSON.stringify(req)})">Responder</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao carregar solicitações:', error);
+        document.getElementById('requestsTable').innerHTML = '<tr><td colspan="8">Erro ao carregar solicitações. Verifique o console.</td></tr>';
+      }
+    }
+
+    async function loadTechnicians() {
+      try {
+        const response = await fetch('/api/technicians', {
+          headers: { 'x-user': JSON.stringify(user) }
+        });
+        if (!response.ok) throw new Error('Erro na requisição de técnicos: ' + response.statusText);
+        const technicians = await response.json();
+        const select = document.getElementById('technicianSelect');
+        const respondSelect = document.getElementById('respondTechnician');
+        select.innerHTML = '<option value="" disabled selected>Selecione um técnico</option>';
+        respondSelect.innerHTML = '<option value="">Nenhum</option>';
+        technicians.forEach(tech => {
+          select.innerHTML += `<option value="${tech.id}">${tech.name} (${tech.availability ? 'Disponível' : 'Ocupado'})</option>`;
+          respondSelect.innerHTML += `<option value="${tech.id}">${tech.name} (${tech.availability ? 'Disponível' : 'Ocupado'})</option>`;
+        });
+      } catch (error) {
+        console.error('Erro ao carregar técnicos:', error);
+        document.getElementById('technicianSelect').innerHTML = '<option>Erro ao carregar técnicos</option>';
+        document.getElementById('respondTechnician').innerHTML = '<option>Erro ao carregar técnicos</option>';
+      }
+    }
+
+    async function openRespondModal(requestId, request) {
+      selectedRequest = request;
+      await loadTechnicians();
+      document.getElementById('respondStatus').value = request.status || 'pending';
+      document.getElementById('respondTechnician').value = request.technicianId || '';
+      document.getElementById('respondScheduledVisit').value = request.scheduledVisit ? new Date(request.scheduledVisit).toISOString().slice(0, 16) : '';
+      const modal = new bootstrap.Modal(document.getElementById('respondModal'));
+      modal.show();
+    }
+
+    async function saveResponse() {
+      if (!selectedRequest) return;
+      const status = document.getElementById('respondStatus').value;
+      const technicianId = document.getElementById('respondTechnician').value || null;
+      const scheduledVisit = document.getElementById('respondScheduledVisit').value || null;
+
+      try {
+        const response = await fetch('/api/respond-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user, requestId: selectedRequest.id, status, technicianId, scheduledVisit })
+        });
+        if (!response.ok) throw new Error('Erro ao responder solicitação: ' + response.statusText);
+        const result = await response.json();
+        alert(result.message);
+        const modal = bootstrap.Modal.getInstance(document.getElementById('respondModal'));
+        modal.hide();
+        await loadRequests();
+        await viewRequest(selectedRequest.id, { ...selectedRequest, status, technicianId, scheduledVisit });
+      } catch (error) {
+        console.error('Erro ao salvar resposta:', error);
+        alert('Erro ao salvar resposta. Verifique o console.');
+      }
+    }
+
+    async function viewRequest(requestId, request) {
+      selectedRequest = request;
+      const details = document.getElementById('requestDetails');
+      const chatHistory = document.getElementById('chatHistorySection');
+      const adminChat = document.getElementById('adminChatSection');
+      const assignSection = document.getElementById('assignTechnicianSection');
+
+      details.classList.remove('hidden');
+      details.classList.add('visible');
+      chatHistory.classList.remove('hidden');
+      chatHistory.classList.add('visible');
+      adminChat.classList.remove('hidden');
+      adminChat.classList.add('visible');
+      assignSection.classList.remove('hidden');
+      assignSection.classList.add('visible');
+
+      document.getElementById('detailNome').textContent = request.nome || 'Não informado';
+      document.getElementById('detailEmail').textContent = request.email || 'Não informado';
+      document.getElementById('detailIdade').textContent = request.idade || 'Não informado';
+      document.getElementById('detailSexo').textContent = request.sexo || 'Não informado';
+      document.getElementById('detailBairro').textContent = request.bairro || 'Não informado';
+      document.getElementById('detailNumeroCasa').textContent = request.numeroCasa || 'Não informado';
+      document.getElementById('detailCelular').textContent = request.celular || 'Não informado';
+      document.getElementById('detailProduto').textContent = request.produto || 'Não informado';
+      document.getElementById('detailProblema').textContent = request.problema || 'Não informado';
+      document.getElementById('detailStatus').textContent = request.status || 'Não informado';
+      document.getElementById('detailTechnician').textContent = request.technicianName || 'Não atribuído';
+      document.getElementById('detailScheduledVisit').textContent = request.scheduledVisit ? new Date(request.scheduledVisit).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' }) : 'Não agendada';
+
+      try {
+        const chatResponse = await fetch(`/api/chat-history/${requestId}`, {
+          headers: { 'x-user': JSON.stringify(user) }
+        });
+        if (!chatResponse.ok) throw new Error('Erro na requisição de histórico: ' + chatResponse.statusText);
+        const chatHistoryData = await chatResponse.json();
+        const chatBox = document.getElementById('chatHistoryBox');
+        chatBox.innerHTML = '';
+        if (chatHistoryData.length === 0) {
+          chatBox.innerHTML = '<p>Nenhum histórico disponível.</p>';
+        } else {
+          chatHistoryData.forEach(msg => {
+            const div = document.createElement('div');
+            const isSent = msg.sender === 'admin';
+            const senderName = msg.sender === 'bot' ? 'Bot de Suporte' : (msg.sender === 'admin' ? 'Admin' : 'Cliente');
+            div.className = `message ${isSent ? 'sent' : 'received'}`;
+            div.innerHTML = `
+              <span class="message-sender">${senderName}</span>
+              ${msg.message}
+              <small class="message-time">${new Date(msg.timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+            `;
+            chatBox.appendChild(div);
+          });
+        }
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (error) {
+        console.error('Erro ao carregar histórico:', error);
+        document.getElementById('chatHistoryBox').innerHTML = '<p>Erro ao carregar histórico. Verifique o console.</p>';
+      }
+
+      document.getElementById('adminChatBox').innerHTML = '';
+      socket.emit('setUserId', user.id, (data) => {
+        console.log('Socket ID definido:', data.userId);
+      });
+    }
+
+    function addMessage({ from, message, timestamp, userId, username, targetUserId }) {
+      if (targetUserId && targetUserId !== selectedRequest.userId) return;
+
+      const chatBox = document.getElementById('adminChatBox');
+      const div = document.createElement('div');
+      const isSent = from === 'admin';
+      const senderName = from === 'bot' ? 'Bot de Suporte' : (from === 'admin' ? 'Admin' : (username || 'Cliente'));
+      div.className = `message ${isSent ? 'sent' : 'received'}`;
+      div.innerHTML = `
+        <span class="message-sender">${senderName}</span>
+        ${message}
+        <small class="message-time">${new Date(timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+      `;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    socket.on('alertAdmin', (data) => {
+      const alertBox = document.getElementById('alertBox');
+      const alert = document.createElement('div');
+      alert.className = 'alert alert-warning alert-dismissible fade show';
+      alert.innerHTML = `
+        ${data.message} (Solicitação: ${data.requestId})
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      alertBox.appendChild(alert);
+      loadRequests();
+    });
+
+    socket.on('privateMessage', (data) => {
+      if (selectedRequest && data.userId === selectedRequest.userId) {
+        addMessage(data);
+      }
+    });
+
+    const adminChatForm = document.getElementById('adminChatForm');
+    if (adminChatForm) {
+      adminChatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const messageInput = document.getElementById('adminChatMessage');
+        const message = messageInput.value.trim();
+        if (!message || !selectedRequest) return;
+        const data = {
+          from: 'admin',
+          message,
+          userId: user.id,
+          username: user.username,
+          targetUserId: selectedRequest.userId,
+          requestId: selectedRequest.id,
+          timestamp: new Date().toISOString()
+        };
+        socket.emit('privateMessage', data);
+        addMessage(data);
+        messageInput.value = '';
+      });
+    }
+
+    document.getElementById('requestInfoBtn').addEventListener('click', () => {
+      if (selectedRequest) {
+        const message = prompt('Digite a solicitação de informações adicionais:');
+        if (message) {
+          socket.emit('requestInfo', {
+            requestId: selectedRequest.id,
+            userId: selectedRequest.userId,
+            message
+          });
+        }
+      }
+    });
+
+    document.getElementById('assignBtn').addEventListener('click', () => {
+      if (selectedRequest) {
+        const technicianId = document.getElementById('technicianSelect').value;
+        const visitDateTime = document.getElementById('visitDateTime').value;
+        if (technicianId) {
+          fetch('/api/assign-technician', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user, requestId: selectedRequest.id, technicianId, scheduledVisit: visitDateTime })
+          })
+            .then(response => response.json())
+            .then(result => {
+              alert(result.message);
+              loadRequests();
+              viewRequest(selectedRequest.id, selectedRequest);
+            })
+            .catch(error => {
+              console.error('Erro ao designar técnico:', error);
+              alert('Erro ao designar técnico. Verifique o console.');
+            });
+        } else {
+          alert('Selecione um técnico!');
+        }
+      }
+    });
+
+    document.getElementById('saveResponseBtn').addEventListener('click', saveResponse);
+
+    document.getElementById('addTechnicianForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('techName').value;
+      const email = document.getElementById('techEmail').value;
+      const phone = document.getElementById('techPhone').value;
+      try {
+        const response = await fetch('/api/add-technician', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-user': JSON.stringify(user) },
+          body: JSON.stringify({ name, email, phone })
+        });
+        if (!response.ok) throw new Error('Erro ao adicionar técnico: ' + response.statusText);
+        const result = await response.json();
+        alert(result.message);
+        document.getElementById('addTechnicianForm').reset();
+        loadTechnicians();
+      } catch (error) {
+        console.error('Erro ao adicionar técnico:', error);
+        alert('Erro ao adicionar técnico. Verifique o console.');
+      }
+    });
+
+    document.getElementById('addAdminForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('adminUsername').value;
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      try {
+        const response = await fetch('/api/auth/register-admin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-user': JSON.stringify(user) },
+          body: JSON.stringify({ username, email, password })
+        });
+        if (!response.ok) throw new Error('Erro ao adicionar administrador: ' + response.statusText);
+        const result = await response.json();
+        alert(result.message);
+        document.getElementById('addAdminForm').reset();
+        loadUsers();
+      } catch (error) {
+        console.error('Erro ao adicionar administrador:', error);
+        alert('Erro ao adicionar administrador. Verifique o console.');
+      }
+    });
+
+    async function loadUsers() {
+      try {
+        const response = await fetch('/api/users', {
+          headers: { 'x-user': JSON.stringify(user) }
+        });
+        if (!response.ok) throw new Error('Erro ao listar usuários: ' + response.statusText);
+        const users = await response.json();
+        const tbody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
+        tbody.innerHTML = '';
+        if (users.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5">Nenhum usuário encontrado.</td></tr>';
+        } else {
+          users.forEach(user => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${user.id}</td>
+              <td>${user.username}</td>
+              <td>${user.email}</td>
+              <td>${user.isAdmin ? 'Sim' : 'Não'}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Excluir</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao carregar usuários:', error);
+        const tbody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
+        tbody.innerHTML = '<tr><td colspan="5">Erro ao carregar usuários. Verifique o console.</td></tr>';
+      }
+    }
+
+    async function deleteUser(userId) {
+      if (confirm('Tem certeza que deseja excluir este usuário?')) {
+        try {
+          const response = await fetch(`/api/users/${userId}`, {
+            method: 'DELETE',
+            headers: { 'x-user': JSON.stringify(user) }
+          });
+          if (!response.ok) throw new Error('Erro ao excluir usuário: ' + response.statusText);
+          const result = await response.json();
+          alert(result.message);
+          loadUsers();
+        } catch (error) {
+          console.error('Erro ao excluir usuário:', error);
+          alert('Erro ao excluir usuário. Verifique o console.');
+        }
+      }
+    }
+
+    renderNavbar();
+    loadRequests();
+    loadTechnicians();
+    loadUsers();
+  </script>
+</body>
+</html>

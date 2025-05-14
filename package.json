@@ -1,0 +1,15 @@
+{
+  "name": "suporte-tecnico",
+  "version": "1.0.0",
+  "description": "Sistema de suporte técnico com chat em tempo real",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.0"
+  }
+}
