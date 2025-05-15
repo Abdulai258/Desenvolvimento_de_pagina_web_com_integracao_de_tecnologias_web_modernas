@@ -3,6 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const sqlite3 = require('sqlite3').verbose();
 const { v4: uuidv4 } = require('uuid');
+const path = require('path'); // Adicionando o módulo path para manipulação de caminhos
 
 const app = express();
 const server = http.createServer(app);
@@ -12,8 +13,11 @@ const io = socketIo(server);
 app.use(express.json());
 app.use(express.static('public'));
 
+// Definir o caminho do banco de dados com base no ambiente
+const dbPath = process.env.NODE_ENV === 'production' ? '/data/database.db' : './server/database.db';
+
 // Banco de dados SQLite
-const db = new sqlite3.Database('./server/database.db', (err) => {
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Erro ao conectar ao banco de dados:', err.message);
   } else {
@@ -440,7 +444,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000; // Render usa a porta 10000
 server.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT} em`, new Date().toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' }));
 });
