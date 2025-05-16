@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="estilo.css">
+  <link rel="stylesheet" href="/estilo.css">
   <style>
     .hero-section {
       background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
@@ -66,16 +66,16 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark modern-navbar">
     <div class="container">
-      <a class="navbar-brand modern-brand" href="index.html">Suporte Técnico</a>
+      <a class="navbar-brand modern-brand" href="/index.html">Suporte Técnico</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link modern-nav-link active" href="index.html">Home</a></li>
-          <li class="nav-item" id="chatLink"><a class="nav-link modern-nav-link" href="chat.html">Chat</a></li>
-          <li class="nav-item" id="loginLink"><a class="nav-link modern-nav-link" href="login.html">Login</a></li>
-          <li class="nav-item" id="registerLink"><a class="nav-link modern-nav-link" href="register.html">Cadastrar</a></li>
+          <li class="nav-item"><a class="nav-link modern-nav-link active" href="/index.html">Home</a></li>
+          <li class="nav-item" id="chatLink"><a class="nav-link modern-nav-link" href="/chat.html">Chat</a></li>
+          <li class="nav-item" id="loginLink"><a class="nav-link modern-nav-link" href="/login.html">Login</a></li>
+          <li class="nav-item" id="registerLink"><a class="nav-link modern-nav-link" href="/register.html">Cadastrar</a></li>
           <li class="nav-item"><button class="btn btn-outline-light modern-logout-btn" id="logoutBtn" style="display: none;">Sair</button></li>
         </ul>
       </div>
@@ -312,7 +312,7 @@
     logoutBtn.addEventListener('click', () => {
       console.log('Logout executado');
       sessionStorage.removeItem('user');
-      window.location.href = 'login.html';
+      window.location.href = '/login.html';
     });
 
     // Enviar solicitação de suporte
@@ -324,7 +324,7 @@
         alertContainer.innerHTML = `
           <div class="alert alert-warning modern-alert alert-dismissible fade show" role="alert">
             Por favor, faça login para enviar uma solicitação.
-            <a href="login.html" class="alert-link">Clique aqui para fazer login</a>.
+            <a href="/login.html" class="alert-link">Clique aqui para fazer login</a>.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>`;
         return;
@@ -350,8 +350,7 @@
       }
 
       const requestBody = {
-        userId: user.id,
-        clientUsername: user.username,
+        user: { id: user.id, username: user.username }, // Enviando user para o backend
         produto,
         problema,
         nome,

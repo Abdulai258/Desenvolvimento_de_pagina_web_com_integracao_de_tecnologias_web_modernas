@@ -11,7 +11,12 @@ const io = socketIo(server);
 
 // Middleware
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '.'))); // Serve arquivos estáticos da raiz do projeto
+
+// Rota para servir o index.html na raiz
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Diretório de dados
 const dataDir = path.join(__dirname, 'data');
@@ -83,6 +88,11 @@ const initializeData = () => {
 
 // Inicializar os dados
 initializeData();
+
+// Rota de ping para verificar se o servidor está ativo
+app.get('/api/ping', (req, res) => {
+  res.json({ status: 'Servidor está ativo' });
+});
 
 // Rotas de autenticação
 app.post('/api/auth/login', (req, res) => {
@@ -191,7 +201,7 @@ app.get('/api/requests', (req, res) => {
 });
 
 app.post('/api/requests', (req, res) => {
-  const user = req.body.user;
+  const user = JSON.parse(req.headers['x-user'] || '{}');
   if (!user || !user.isAdmin) return res.status(403).json({ message: 'Acesso restrito a administradores' });
   const requests = readJsonFile(requestsFile);
   const users = readJsonFile(usersFile);
