@@ -11,11 +11,16 @@ const io = socketIo(server);
 
 // Middleware
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '.'))); // Serve arquivos estáticos da raiz do projeto
+app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve arquivos estáticos da pasta public (um nível acima de server/)
 
 // Rota para servir o index.html na raiz
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  const indexPath = path.join(__dirname, '..', 'public', 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('Arquivo index.html não encontrado na pasta public');
+  }
 });
 
 // Diretório de dados

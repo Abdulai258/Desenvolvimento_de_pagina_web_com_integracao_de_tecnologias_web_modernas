@@ -14,21 +14,18 @@ Designação de técnicos e agendamento de visitas.
 
 
 
-Estrutura do Projeto
-projeto-pagina-web/
-│
-├── server/
-│   ├── app.js          # Lógica do servidor e banco de dados
-│   └── database.db     # Banco de dados SQLite
-│
+/Desenvolvimento_de_pagina_web_com_integracao_de_tecnologias_web_modernas
 ├── public/
 │   ├── index.html      # Página inicial com formulário de suporte
 │   ├── chat.html       # Interface de chat do cliente
 │   ├── admin.html      # Painel do administrador
 │   ├── login.html      # Página de login
 │   └── register.html   # Página de cadastro
-│
-├── package.json        # Dependências e scripts do projeto
+│── server/
+│   ├── app.js          # Lógica do servidor e banco de dados
+│   └── data. 
+├── package.json
+├──  routers.js
 └── node_modules/       # Dependências instaladas (gerada por npm)
 
 Pré-requisitos
