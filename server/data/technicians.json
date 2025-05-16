@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "João Silva",
+    "email": "joao@tecnico.com",
+    "phone": "+258123456789",
+    "availability": 1,
+    "createdAt": "2025-05-15T16:22:00.082Z"
+  },
+  {
+    "id": 2,
+    "name": "Maria Oliveira",
+    "email": "maria@tecnico.com",
+    "phone": "+258987654321",
+    "availability": 1,
+    "createdAt": "2025-05-15T16:22:00.082Z"
+  }
+]

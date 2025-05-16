@@ -3,239 +3,268 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat de Suporte</title>
+  <title>Chat - Suporte Técnico</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo.css">
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f0f4f8;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-    }
     .chat-container {
-      background-color: #f5faff;
-      width: 80%;
-      max-width: 600px;
-      height: 80vh;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
-      display: flex;
-      flex-direction: column;
-    }
-    .chat-header {
-      background-color: #007bff;
-      color: white;
-      padding: 10px;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-      text-align: center;
-      font-weight: 600;
-    }
-    .chat-box {
-      flex-grow: 1;
+      max-height: 400px;
       overflow-y: auto;
-      padding: 20px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f8f9fa;
     }
-    .message {
+    .modern-message {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
       max-width: 70%;
-      margin-bottom: 15px;
-      padding: 12px 15px;
-      border-radius: 15px;
-      position: relative;
-      word-wrap: break-word;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     }
-    .message.sent {
-      margin-left: auto;
+    .client {
       background-color: #007bff;
       color: white;
-      border-top-right-radius: 0;
+      margin-left: auto;
     }
-    .message.received {
-      margin-right: auto;
-      background-color: white;
-      color: #007bff;
-      border: 1px solid #007bff;
-      border-top-left-radius: 0;
+    .admin {
+      background-color: #28a745;
+      color: white;
     }
-    .message-sender {
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 5px;
+    .bot {
+      background-color: #6c757d;
+      color: white;
+    }
+    .modern-message-time {
       display: block;
+      font-size: 0.8em;
+      opacity: 0.7;
     }
-    .message.sent .message-sender {
-      color: #e6f0ff;
-    }
-    .message.received .message-sender {
-      color: #0056b3;
-    }
-    .message-time {
-      font-size: 0.7rem;
-      color: #b3d4ff;
-      display: block;
-      text-align: right;
-      margin-top: 5px;
-    }
-    .message.received .message-time {
-      text-align: left;
-      color: #007bff;
-    }
-    .chat-input {
-      padding: 10px;
-      border-top: 1px solid #007bff;
-    }
-    .typing-indicator {
-      font-style: italic;
-      color: #0056b3;
-      margin-bottom: 10px;
-    }
-    .suggestions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-    .suggestion-btn {
-      background-color: #e6f0ff;
-      border: 1px solid #007bff;
-      border-radius: 10px;
-      padding: 5px 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .suggestion-btn:hover {
-      background-color: #d0e0ff;
-    }
-    .modern-input {
-      border-radius: 10px;
-      border: 1px solid #007bff;
-    }
-    .modern-btn {
-      border-radius: 10px;
-      font-weight: 500;
-      transition: background-color 0.3s;
-    }
-    .modern-btn:hover {
-      background-color: #0056b3;
+    .alert-dismissible {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1050;
     }
   </style>
 </head>
 <body>
-  <div class="chat-container">
-    <div class="chat-header">Chat de Suporte</div>
-    <div class="chat-box" id="chatBox"></div>
-    <div class="chat-input">
-      <form id="chatForm" class="row g-2">
-        <div class="col-10">
-          <input type="text" class="form-control modern-input" id="messageInput" placeholder="Digite sua mensagem..." required>
+  <nav class="navbar navbar-expand-lg navbar-dark modern-navbar">
+    <div class="container">
+      <a class="navbar-brand modern-brand" href="index.html">Suporte Técnico</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link modern-nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link modern-nav-link active" href="chat.html">Chat</a></li>
+          <li class="nav-item"><button class="btn btn-outline-light modern-logout-btn" id="logoutBtn">Sair</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title">Chat com o Suporte</h5>
+        <div class="chat-container modern-chat-messages" id="chatBox"></div>
+        <div class="chat-input mt-3">
+          <form id="chatForm" class="row g-2">
+            <div class="col-8">
+              <input type="text" class="form-control modern-input" id="messageInput" placeholder="Digite sua mensagem..." required>
+            </div>
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary modern-btn w-100">Enviar</button>
+            </div>
+          </form>
         </div>
-        <div class="col-2">
-          <button type="submit" class="btn btn-primary modern-btn w-100">Enviar</button>
-        </div>
-      </form>
-      <div id="suggestions" class="suggestions"></div>
-      <div id="typingIndicator" class="typing-indicator" style="display: none;">Bot está digitando...</div>
-      <button class="btn btn-warning mt-2 w-100" id="needHelpBtn">Ainda Preciso de Ajuda</button>
+      </div>
     </div>
   </div>
+
+  <div id="alertContainer"></div>
+
+  <footer class="py-4 text-center text-white modern-footer">
+    <div class="container">
+      <p class="mb-0">© 2025 Suporte Técnico. Todos os direitos reservados.</p>
+      <p class="mb-0">Contato: <a href="mailto:kennysaide2003@gmail.com">kennysaide2003@gmail.com</a> | +258 852092717</p>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
     const socket = io();
-    let requestId = localStorage.getItem('currentRequestId') || uuidv4();
+    const chatBox = document.getElementById('chatBox');
+    const messageInput = document.getElementById('messageInput');
+    const chatForm = document.getElementById('chatForm');
+    const alertContainer = document.getElementById('alertContainer');
 
-    if (!user || !user.id) {
+    // Verificar se o usuário está logado
+    if (!user || !user.id || !user.username) {
       window.location.href = 'login.html';
+      return;
     }
 
-    socket.emit('setUserId', user.id, (data) => {
-      console.log('Socket ID definido:', data.userId);
+    // Registrar o usuário no WebSocket
+    socket.emit('setUserId', user.id.toString(), (response) => {
+      console.log('Socket ID definido:', response);
     });
 
-    function addMessage({ from, message, timestamp, userId, username }) {
-      const chatBox = document.getElementById('chatBox');
+    // Carregar histórico de chat
+    async function loadChatHistory() {
+      try {
+        const response = await fetch('/api/requests', {
+          headers: { 'x-user': JSON.stringify(user) }
+        });
+        if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+        const requests = await response.json();
+        const userRequest = requests.find(req => req.userId === user.id);
+        if (!userRequest) {
+          alertContainer.innerHTML = `
+            <div class="alert alert-info modern-alert alert-dismissible fade show" role="alert">
+              Nenhuma solicitação encontrada. Envie uma solicitação para iniciar o chat.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+          return;
+        }
+
+        const requestId = userRequest.id;
+        const historyResponse = await fetch(`/api/chat-history/${requestId}`, {
+          headers: { 'x-user': JSON.stringify(user) }
+        });
+        if (!historyResponse.ok) throw new Error(`Erro HTTP: ${historyResponse.status}`);
+        const data = await historyResponse.json();
+        data.forEach(msg => {
+          const div = document.createElement('div');
+          const isSent = msg.sender === 'user' || msg.sender === user.id.toString();
+          div.className = `modern-message ${isSent ? 'client' : msg.sender === 'bot' ? 'bot' : 'admin'}`;
+          div.innerHTML = `
+            <span class="message-sender">${msg.sender === 'bot' ? 'Bot de Suporte' : (msg.sender === 'admin' ? 'Admin' : user.username)}</span>
+            ${msg.message}
+            <small class="modern-message-time">${new Date(msg.timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+          `;
+          chatBox.appendChild(div);
+        });
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (error) {
+        console.error('Erro ao carregar histórico do chat:', error);
+        alertContainer.innerHTML = `
+          <div class="alert alert-danger modern-alert alert-dismissible fade show" role="alert">
+            Erro ao carregar histórico do chat: ${error.message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>`;
+      }
+    }
+
+    // Enviar mensagem
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault(); // Impede o recarregamento da página
+      const message = messageInput.value.trim();
+      if (!message) return;
+
+      fetch('/api/requests', {
+        headers: { 'x-user': JSON.stringify(user) }
+      })
+        .then(response => response.json())
+        .then(requests => {
+          const userRequest = requests.find(req => req.userId === user.id);
+          if (!userRequest) {
+            alertContainer.innerHTML = `
+              <div class="alert alert-danger modern-alert alert-dismissible fade show" role="alert">
+                Nenhuma solicitação encontrada. Envie uma solicitação para iniciar o chat.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>`;
+            return;
+          }
+
+          const data = {
+            from: 'user',
+            message,
+            requestId: userRequest.id,
+            userId: user.id.toString(),
+            username: user.username,
+            targetUserId: '1' // ID do administrador
+          };
+
+          socket.emit('privateMessage', data, (response) => {
+            if (response.error) {
+              console.error('Erro ao enviar mensagem:', response.error);
+              alertContainer.innerHTML = `
+                <div class="alert alert-danger modern-alert alert-dismissible fade show" role="alert">
+                  Erro ao enviar mensagem: ${response.error}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+            } else {
+              console.log('Mensagem enviada com sucesso:', response);
+              const div = document.createElement('div');
+              div.className = 'modern-message client';
+              div.innerHTML = `
+                <span class="message-sender">${user.username}</span>
+                ${message}
+                <small class="modern-message-time">${new Date().toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+              `;
+              chatBox.appendChild(div);
+              chatBox.scrollTop = chatBox.scrollHeight;
+              messageInput.value = '';
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Erro ao buscar solicitação:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert alert-dismissible fade show" role="alert">
+              Erro ao enviar mensagem: ${error.message}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+        });
+    });
+
+    // Receber mensagens
+    socket.on('privateMessage', (data) => {
+      console.log('Mensagem recebida:', data);
       const div = document.createElement('div');
-      const isSent = userId === user.id;
-      const senderName = from === 'bot' ? 'Bot de Suporte' : (username || 'Você');
-      div.className = `message ${isSent ? 'sent' : 'received'}`;
+      const isSent = data.from === 'user' || data.userId === user.id.toString();
+      div.className = `modern-message ${isSent ? 'client' : data.from === 'bot' ? 'bot' : 'admin'}`;
       div.innerHTML = `
-        <span class="message-sender">${senderName}</span>
-        ${message}
-        <small class="message-time">${new Date(timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+        <span class="message-sender">${data.from === 'bot' ? 'Bot de Suporte' : (data.from === 'admin' ? 'Admin' : data.username)}</span>
+        ${data.message}
+        <small class="modern-message-time">${new Date(data.timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
       `;
       chatBox.appendChild(div);
       chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    const chatForm = document.getElementById('chatForm');
-    if (chatForm) {
-      chatForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const messageInput = document.getElementById('messageInput');
-        const message = messageInput.value.trim();
-        if (!message) return;
-        const data = {
-          from: 'user',
-          message,
-          requestId,
-          userId: user.id,
-          username: user.username,
-          timestamp: new Date().toISOString()
-        };
-        socket.emit('message', data);
-        addMessage(data);
-        messageInput.value = '';
-      });
-    }
-
-    socket.on('message', (data) => {
-      addMessage(data);
     });
 
-    socket.on('privateMessage', (data) => {
-      addMessage(data);
+    // Receber solicitações de mais informações
+    socket.on('requestInfo', (data) => {
+      alertContainer.innerHTML = `
+        <div class="alert alert-info modern-alert alert-dismissible fade show" role="alert">
+          Solicitação de mais informações: ${data.message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`;
     });
 
-    socket.on('typing', (data) => {
-      const typingIndicator = document.getElementById('typingIndicator');
-      typingIndicator.style.display = data.typing ? 'block' : 'none';
+    // Receber agendamento de visita
+    socket.on('scheduleVisit', (data) => {
+      alertContainer.innerHTML = `
+        <div class="alert alert-success modern-alert alert-dismissible fade show" role="alert">
+          Visita agendada para ${new Date(data.dateTime).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' })}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`;
     });
 
-    socket.on('suggestions', (suggestions) => {
-      const suggestionsDiv = document.getElementById('suggestions');
-      suggestionsDiv.innerHTML = '';
-      suggestions.forEach(suggestion => {
-        const btn = document.createElement('button');
-        btn.className = 'suggestion-btn';
-        btn.textContent = suggestion;
-        btn.onclick = () => {
-          document.getElementById('messageInput').value = suggestion;
-          chatForm.requestSubmit();
-        };
-        suggestionsDiv.appendChild(btn);
-      });
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem('user');
+      window.location.href = 'login.html';
     });
 
-    document.getElementById('needHelpBtn').addEventListener('click', () => {
-      socket.emit('needHelp', { requestId, userId: user.id });
-      addMessage({
-        from: 'user',
-        message: 'Ainda preciso de ajuda!',
-        userId: user.id,
-        username: user.username,
-        timestamp: new Date().toISOString()
-      });
-    });
+    // Carregar histórico ao iniciar
+    loadChatHistory();
   </script>
 </body>
 </html>

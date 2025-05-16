@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@example.com",
+    "password": "admin123",
+    "isAdmin": 1,
+    "createdAt": "2025-05-15T16:22:00.078Z"
+  },
+  {
+    "id": 2,
+    "username": "Kenny",
+    "email": "kenny@gmail.com",
+    "password": "123",
+    "isAdmin": 1,
+    "createdAt": "2025-05-15T16:26:35.546Z"
+  },
+  {
+    "id": 3,
+    "username": "Abdulai",
+    "email": "abdulai@gmail.com",
+    "password": "123",
+    "isAdmin": 0,
+    "createdAt": "2025-05-15T16:27:20.517Z"
+  },
+  {
+    "id": 4,
+    "username": "Jose",
+    "email": "jose@gmail.com",
+    "password": "123456",
+    "isAdmin": 0,
+    "createdAt": "2025-05-16T05:08:52.497Z"
+  },
+  {
+    "id": 5,
+    "username": "Chande_jr",
+    "email": "chande@gmail.com",
+    "password": "admin123",
+    "isAdmin": 1,
+    "createdAt": "2025-05-16T12:04:14.720Z"
+  }
+]

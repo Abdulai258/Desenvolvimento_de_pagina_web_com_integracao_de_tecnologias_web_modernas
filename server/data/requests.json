@@ -1,0 +1,36 @@
+[
+  {
+    "id": "dead808b-5a2d-4320-923a-cf5c87cd3148",
+    "userId": 4,
+    "nome": "Jose Maria",
+    "email": "jose@gmail.com",
+    "idade": 18,
+    "sexo": "Masculino",
+    "bairro": "Expansao",
+    "numeroCasa": "25",
+    "celular": "8377474849",
+    "produto": "Computador",
+    "problema": "tela preta",
+    "status": "pending",
+    "technicianId": "2",
+    "scheduledVisit": "3322-02-22T14:32",
+    "createdAt": "2025-05-16T05:30:28.728Z"
+  },
+  {
+    "id": "e3e52608-b656-454e-bbf4-0356d4481e2b",
+    "userId": 3,
+    "nome": "abdulai saide abdala",
+    "email": "abdulai@gmail.com",
+    "idade": 21,
+    "sexo": "Masculino",
+    "bairro": "Natite",
+    "numeroCasa": "4",
+    "celular": "8729282984",
+    "produto": "Rooter",
+    "problema": "nao liga",
+    "status": "pending",
+    "technicianId": null,
+    "scheduledVisit": null,
+    "createdAt": "2025-05-16T10:51:01.796Z"
+  }
+]

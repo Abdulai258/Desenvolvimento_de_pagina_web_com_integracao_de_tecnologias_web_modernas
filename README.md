@@ -145,8 +145,8 @@ Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes (caso aplicável, adicione um arquivo LICENSE com a licença escolhida).
 Contato
 
-E-mail: suporte@exemplo.com
-Telefone: +123 456 789
+E-mail: kennysaide2003@gmail.com
+Telefone: +258 852992717
 Data: 14/05/2025, 22:46 CAT
 
 Agradecemos por usar o Suporte Técnico! 🚀

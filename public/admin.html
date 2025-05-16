@@ -3,412 +3,408 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Área do Administrador</title>
+  <title>Painel de Administração</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo.css">
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f0f4f8;
+    .alert-dismissible {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 1050;
     }
-    .modern-navbar {
-      background: linear-gradient(90deg, #007bff, #0056b3);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .modern-brand {
-      font-weight: 600;
-      font-size: 1.5rem;
-    }
-    .modern-nav-link {
-      color: #e6f0ff !important;
-      font-weight: 400;
-    }
-    .modern-nav-link:hover {
-      color: #ffffff !important;
-    }
-    .modern-hero {
-      background: linear-gradient(180deg, #007bff, #f0f4f8);
-      color: white;
-      padding: 60px 0;
-    }
-    .modern-title {
-      font-weight: 700;
-      font-size: 2.5rem;
-    }
-    .modern-subtitle {
-      font-weight: 300;
-      font-size: 1.2rem;
-    }
-    .modern-icon {
-      color: #ffffff;
-    }
-    .modern-card {
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
-      transition: transform 0.2s;
-      margin-bottom: 20px;
-    }
-    .modern-card:hover {
-      transform: translateY(-5px);
-    }
-    .modern-admin-header {
-      background-color: #007bff;
-      color: white;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-    }
-    .modern-card-title {
-      font-weight: 600;
-    }
-    .modern-input {
-      border-radius: 10px;
-      border: 1px solid #007bff;
-    }
-    .modern-btn {
-      border-radius: 10px;
-      font-weight: 500;
-      transition: background-color 0.3s;
-    }
-    .modern-btn:hover {
-      background-color: #0056b3;
-    }
-    .modern-footer {
-      background: linear-gradient(90deg, #007bff, #0056b3);
-      padding: 20px 0;
-    }
-    .chat-container {
-      background-color: #f5faff;
-      height: 40vh;
+    .forwarded-messages-container {
+      max-height: 300px;
       overflow-y: auto;
-      padding: 20px;
+      margin-bottom: 10px;
+    }
+    .chat-message {
+      margin: 10px 0;
+      padding: 10px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 123, 255, 0.1);
-    }
-    .chat-container::-webkit-scrollbar {
-      width: 6px;
-    }
-    .chat-container::-webkit-scrollbar-thumb {
-      background-color: #007bff;
-      border-radius: 10px;
-    }
-    .message {
       max-width: 70%;
-      margin-bottom: 15px;
-      padding: 12px 15px;
-      border-radius: 15px;
-      position: relative;
-      word-wrap: break-word;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     }
-    .message.sent {
+    .received {
+      background-color: #e9ecef;
+      color: black;
+    }
+    .admin-response {
+      background-color: #28a745;
+      color: white;
       margin-left: auto;
-      background-color: #007bff;
+    }
+    .bot-message {
+      background-color: #6c757d;
       color: white;
-      border-top-right-radius: 0;
     }
-    .message.received {
-      margin-right: auto;
-      background-color: white;
-      color: #007bff;
-      border: 1px solid #007bff;
-      border-top-left-radius: 0;
-    }
-    .message-sender {
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 5px;
+    .chat-time {
       display: block;
-    }
-    .message.sent .message-sender {
-      color: #e6f0ff;
-    }
-    .message.received .message-sender {
-      color: #0056b3;
-    }
-    .message-time {
-      font-size: 0.7rem;
-      color: #b3d4ff;
-      display: block;
-      text-align: right;
-      margin-top: 5px;
-    }
-    .message.received .message-time {
-      text-align: left;
-      color: #007bff;
-    }
-    .technician-select {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-    .visit-datetime {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-    .hidden {
-      display: none !important;
-    }
-    .visible {
-      display: block !important;
-    }
-    .nav-tabs .nav-link {
-      color: #007bff;
-    }
-    .nav-tabs .nav-link.active {
-      background-color: #007bff;
-      color: white;
+      font-size: 0.8em;
+      opacity: 0.7;
     }
   </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark modern-navbar">
     <div class="container">
-      <a class="navbar-brand modern-brand" href="admin.html">Suporte Técnico</a>
+      <a class="navbar-brand modern-brand" href="index.html">Suporte Técnico</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto" id="navLinks"></ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link modern-nav-link" href="admin.html">Admin</a></li>
+          <li class="nav-item"><button class="btn btn-outline-light modern-logout-btn" id="logoutBtn">Sair</button></li>
+        </ul>
       </div>
     </div>
   </nav>
 
-  <section class="py-5 text-center modern-hero">
-    <div class="container">
-      <i class="bi bi-shield-lock display-4 mb-3 modern-icon"></i>
-      <h1 class="display-4 modern-title">Área do Administrador</h1>
-      <p class="lead modern-subtitle">Gerencie solicitações, usuários e técnicos.</p>
+  <div class="container mt-4">
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
+    <!-- Lista de Solicitações Pendentes -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="requests-content">
+          Solicitações Pendentes <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="requests-content">
+          <table class="table table-striped modern-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Produto</th>
+                <th>Problema</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="requestsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <section class="py-5">
-    <div class="container">
-      <div id="alertBox" class="mb-4"></div>
+    <!-- Dados Completos dos Clientes -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="clients-content">
+          Dados dos Clientes <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="clients-content">
+          <table class="table table-striped modern-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Idade</th>
+                <th>Sexo</th>
+                <th>Bairro</th>
+                <th>Nº Casa</th>
+                <th>Celular</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-      <ul class="nav nav-tabs" id="adminTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">Solicitações Pendentes</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="add-tech-tab" data-bs-toggle="tab" data-bs-target="#add-tech" type="button" role="tab">Adicionar Técnico</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="add-admin-tab" data-bs-toggle="tab" data-bs-target="#add-admin" type="button" role="tab">Adicionar Administrador</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="manage-users-tab" data-bs-toggle="tab" data-bs-target="#manage-users" type="button" role="tab">Gerenciar Usuários</button>
-        </li>
-      </ul>
+    <!-- Gerenciar Usuários -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="users-content">
+          Gerenciar Usuários <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="users-content">
+          <table class="table table-striped modern-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome de Usuário</th>
+                <th>Email</th>
+                <th>É Admin?</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-      <div class="tab-content" id="adminTabContent">
-        <!-- Solicitações Pendentes -->
-        <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-          <div class="card modern-card mb-4">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Solicitações Pendentes</h3>
-            </div>
-            <div class="card-body">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Produto</th>
-                    <th>Problema</th>
-                    <th>Status</th>
-                    <th>Técnico</th>
-                    <th>Visita Agendada</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody id="requestsTable"></tbody>
-              </table>
-            </div>
-          </div>
+    <!-- Gerenciamento de Técnicos -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="technicians-content">
+          Gerenciamento de Técnicos <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="technicians-content">
+          <table class="table table-striped modern-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Especialidade</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="techniciansTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-          <div class="card modern-card mb-4 hidden" id="requestDetails">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Detalhes da Solicitação</h3>
-            </div>
-            <div class="card-body">
-              <h5>Dados do Cliente</h5>
-              <p><strong>Nome:</strong> <span id="detailNome"></span></p>
-              <p><strong>E-mail:</strong> <span id="detailEmail"></span></p>
-              <p><strong>Idade:</strong> <span id="detailIdade"></span></p>
-              <p><strong>Sexo:</strong> <span id="detailSexo"></span></p>
-              <p><strong>Bairro:</strong> <span id="detailBairro"></span></p>
-              <p><strong>Número da Casa:</strong> <span id="detailNumeroCasa"></span></p>
-              <p><strong>Celular:</strong> <span id="detailCelular"></span></p>
-              <p><strong>Produto:</strong> <span id="detailProduto"></span></p>
-              <p><strong>Problema:</strong> <span id="detailProblema"></span></p>
-              <p><strong>Status:</strong> <span id="detailStatus"></span></p>
-              <p><strong>Técnico Atribuído:</strong> <span id="detailTechnician"></span></p>
-              <p><strong>Visita Agendada:</strong> <span id="detailScheduledVisit"></span></p>
-            </div>
-          </div>
+    <!-- Problemas Não Resolvidos -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="unresolved-content">
+          Problemas Não Resolvidos <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="unresolved-content">
+          <table class="table table-striped modern-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Produto</th>
+                <th>Problema</th>
+                <th>Data</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="unresolvedTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-          <div class="card modern-card mb-4 hidden" id="chatHistorySection">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Histórico de Chat</h3>
+    <!-- Adicionar Administrador -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="add-admin-content">
+          Adicionar Administrador <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="add-admin-content">
+          <form id="addAdminForm">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="adminUsername" class="form-label">Nome de Usuário</label>
+                <input type="text" class="form-control modern-input" id="adminUsername" required>
+              </div>
+              <div class="col-md-6">
+                <label for="adminEmail" class="form-label">Email</label>
+                <input type="email" class="form-control modern-input" id="adminEmail" required>
+              </div>
             </div>
-            <div class="card-body">
-              <div class="chat-container" id="chatHistoryBox"></div>
+            <div class="mb-3">
+              <label for="adminPassword" class="form-label">Senha</label>
+              <input type="password" class="form-control modern-input" id="adminPassword" required>
             </div>
-          </div>
+            <button type="submit" class="btn btn-primary modern-btn">Adicionar Administrador</button>
+          </form>
+        </div>
+      </div>
+    </div>
 
-          <div class="card modern-card mb-4 hidden" id="adminChatSection">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Chat com Cliente</h3>
+    <!-- Adicionar Técnico -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="add-technician-content">
+          Adicionar Técnico <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="add-technician-content">
+          <form id="addTechnicianForm">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="technicianName" class="form-label">Nome</label>
+                <input type="text" class="form-control modern-input" id="technicianName" required>
+              </div>
+              <div class="col-md-6">
+                <label for="technicianEmail" class="form-label">Email</label>
+                <input type="email" class="form-control modern-input" id="technicianEmail" required>
+              </div>
             </div>
-            <div class="card-body">
-              <div class="chat-container" id="adminChatBox"></div>
-              <form id="adminChatForm" class="row g-3 mt-2">
-                <div class="col-md-10">
-                  <input type="text" class="form-control modern-input" id="adminChatMessage" placeholder="Digite sua mensagem" required>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="technicianPhone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control modern-input" id="technicianPhone" required>
+              </div>
+              <div class="col-md-6">
+                <label for="technicianSpecialty" class="form-label">Especialidade</label>
+                <input type="text" class="form-control modern-input" id="technicianSpecialty" placeholder="Ex.: Redes, Hardware" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary modern-btn">Adicionar Técnico</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Designar Técnico -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="assign-technician-content">
+          Designar Técnico <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="assign-technician-content">
+          <form id="assignTechnicianForm">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="requestSelect" class="form-label">Solicitação</label>
+                <select class="form-select modern-input" id="requestSelect" required></select>
+              </div>
+              <div class="col-md-6">
+                <label for="technicianSelect" class="form-label">Técnico Disponível</label>
+                <select class="form-select modern-input" id="technicianSelect" required></select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="scheduledVisit" class="form-label">Agendar Visita</label>
+              <input type="datetime-local" class="form-control modern-input" id="scheduledVisit">
+            </div>
+            <button type="submit" class="btn btn-primary modern-btn">Designar Técnico</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat com o Cliente -->
+    <div class="modern-card" id="chatSection" style="display: none;">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="chat-content">
+          Chat com o Cliente <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="chat-content">
+          <div class="chat-container modern-chat-messages">
+            <div class="chat-header" id="chatHeader">Chat com o Cliente</div>
+            <div class="chat-box forwarded-messages-container" id="adminChatBox"></div>
+            <div class="chat-input">
+              <form id="adminChatForm" class="row g-2">
+                <div class="col-8">
+                  <input type="text" class="form-control modern-input" id="adminMessageInput" placeholder="Digite sua mensagem..." required>
                 </div>
-                <div class="col-md-2">
+                <div class="col-4">
                   <button type="submit" class="btn btn-primary modern-btn w-100">Enviar</button>
                 </div>
               </form>
-              <button class="btn btn-info modern-btn mt-2" id="requestInfoBtn">Solicitar Mais Informações</button>
-            </div>
-          </div>
-
-          <div class="card modern-card mb-4 hidden" id="assignTechnicianSection">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Designar Técnico</h3>
-            </div>
-            <div class="card-body">
-              <select class="form-select technician-select" id="technicianSelect"></select>
-              <input type="datetime-local" class="form-control visit-datetime mt-2" id="visitDateTime">
-              <button class="btn btn-success modern-btn mt-2 w-100" id="assignBtn">Designar Técnico</button>
-            </div>
-          </div>
-
-          <!-- Modal para responder solicitação -->
-          <div class="modal fade" id="respondModal" tabindex="-1" aria-labelledby="respondModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="respondModalLabel">Responder Solicitação</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="respondForm">
-                    <div class="mb-3">
-                      <label for="respondStatus" class="form-label">Status:</label>
-                      <select class="form-select" id="respondStatus" required>
-                        <option value="pending">Pendente</option>
-                        <option value="in_progress">Em Andamento</option>
-                        <option value="resolved">Resolvido</option>
-                        <option value="needs_admin">Precisa de Admin</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="respondTechnician" class="form-label">Técnico Atribuído:</label>
-                      <select class="form-select" id="respondTechnician">
-                        <option value="">Nenhum</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="respondScheduledVisit" class="form-label">Visita Agendada:</label>
-                      <input type="datetime-local" class="form-control" id="respondScheduledVisit">
-                    </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                  <button type="button" class="btn btn-primary" id="saveResponseBtn">Salvar</button>
+              <div class="mt-2">
+                <button class="btn btn-info modern-btn w-100" id="requestMoreInfoBtn">Solicitar Mais Informações</button>
+              </div>
+              <div class="mt-2">
+                <label for="scheduleVisitInput" class="form-label">Agendar Visita</label>
+                <div class="input-group">
+                  <input type="datetime-local" class="form-control modern-input" id="scheduleVisitInput">
+                  <button class="btn btn-success modern-btn" id="scheduleVisitBtn">Agendar</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Adicionar Técnico -->
-        <div class="tab-pane fade" id="add-tech" role="tabpanel" aria-labelledby="add-tech-tab">
-          <div class="card modern-card mb-4">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Adicionar Técnico</h3>
-            </div>
-            <div class="card-body">
-              <form id="addTechnicianForm">
-                <div class="mb-3">
-                  <label for="techName" class="form-label">Nome:</label>
-                  <input type="text" class="form-control modern-input" id="techName" required>
-                </div>
-                <div class="mb-3">
-                  <label for="techEmail" class="form-label">E-mail:</label>
-                  <input type="email" class="form-control modern-input" id="techEmail" required>
-                </div>
-                <div class="mb-3">
-                  <label for="techPhone" class="form-label">Telefone:</label>
-                  <input type="text" class="form-control modern-input" id="techPhone" required>
-                </div>
-                <button type="submit" class="btn btn-success modern-btn w-100">Adicionar Técnico</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- Adicionar Administrador -->
-        <div class="tab-pane fade" id="add-admin" role="tabpanel" aria-labelledby="add-admin-tab">
-          <div class="card modern-card mb-4">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Adicionar Administrador</h3>
-            </div>
-            <div class="card-body">
-              <form id="addAdminForm">
-                <div class="mb-3">
-                  <label for="adminUsername" class="form-label">Username:</label>
-                  <input type="text" class="form-control modern-input" id="adminUsername" required>
-                </div>
-                <div class="mb-3">
-                  <label for="adminEmail" class="form-label">E-mail:</label>
-                  <input type="email" class="form-control modern-input" id="adminEmail" required>
-                </div>
-                <div class="mb-3">
-                  <label for="adminPassword" class="form-label">Senha:</label>
-                  <input type="password" class="form-control modern-input" id="adminPassword" required>
-                </div>
-                <button type="submit" class="btn btn-success modern-btn w-100">Adicionar Administrador</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <!-- Gerenciar Usuários -->
-        <div class="tab-pane fade" id="manage-users" role="tabpanel" aria-labelledby="manage-users-tab">
-          <div class="card modern-card mb-4">
-            <div class="card-header modern-admin-header">
-              <h3 class="mb-0 modern-card-title">Gerenciar Usuários</h3>
-            </div>
-            <div class="card-body">
-              <table class="table table-striped" id="usersTable">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>E-mail</th>
-                    <th>Administrador</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
+    <!-- Mensagens Reencaminhadas -->
+    <div class="modern-card">
+      <div class="card-body">
+        <h5 class="card-title toggle-section" data-toggle-target="forwarded-messages-content">
+          Mensagens Reencaminhadas <i class="bi bi-chevron-down"></i>
+        </h5>
+        <div class="section-content collapse" id="forwarded-messages-content">
+          <div class="forwarded-messages-container" id="forwardedMessagesBox"></div>
+          <div class="input-group mt-3">
+            <input type="text" class="form-control modern-input" id="adminForwardedResponseInput" placeholder="Digite sua resposta...">
+            <button class="btn btn-success modern-btn" id="sendForwardedResponse">Enviar</button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- Modal para Editar Usuário -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content modern-card">
+          <div class="modal-header modern-admin-header">
+            <h5 class="modal-title" id="editUserModalLabel">Editar Usuário</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editUserForm">
+              <input type="hidden" id="editUserId">
+              <div class="mb-3">
+                <label for="editUsername" class="form-label">Nome de Usuário</label>
+                <input type="text" class="form-control modern-input" id="editUsername" required>
+              </div>
+              <div class="mb-3">
+                <label for="editEmail" class="form-label">Email</label>
+                <input type="email" class="form-control modern-input" id="editEmail" required>
+              </div>
+              <div class="mb-3">
+                <label for="editPassword" class="form-label">Nova Senha (opcional)</label>
+                <input type="password" class="form-control modern-input" id="editPassword">
+              </div>
+              <div class="mb-3">
+                <label for="editIsAdmin" class="form-label">Administrador</label>
+                <select class="form-select modern-input" id="editIsAdmin">
+                  <option value="1">Sim</option>
+                  <option value="0">Não</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary modern-btn">Salvar Alterações</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Editar Técnico -->
+    <div class="modal fade" id="editTechnicianModal" tabindex="-1" aria-labelledby="editTechnicianModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content modern-card">
+          <div class="modal-header modern-admin-header">
+            <h5 class="modal-title" id="editTechnicianModalLabel">Editar Técnico</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editTechnicianForm">
+              <input type="hidden" id="editTechnicianId">
+              <div class="mb-3">
+                <label for="editTechnicianName" class="form-label">Nome</label>
+                <input type="text" class="form-control modern-input" id="editTechnicianName" required>
+              </div>
+              <div class="mb-3">
+                <label for="editTechnicianEmail" class="form-label">Email</label>
+                <input type="email" class="form-control modern-input" id="editTechnicianEmail" required>
+              </div>
+              <div class="mb-3">
+                <label for="editTechnicianPhone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control modern-input" id="editTechnicianPhone" required>
+              </div>
+              <div class="mb-3">
+                <label for="editTechnicianSpecialty" class="form-label">Especialidade</label>
+                <input type="text" class="form-control modern-input" id="editTechnicianSpecialty" required>
+              </div>
+              <button type="submit" class="btn btn-primary modern-btn">Salvar Alterações</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
   <footer class="py-3 text-center text-white modern-footer">
     <div class="container">
       <p class="mb-0">© 2025 Suporte Técnico. Todos os direitos reservados.</p>
-      <p class="mb-0">Contato: suporte@exemplo.com | +123 456 789</p>
+      <p class="mb-0">Contato: <a href="mailto:suporte@exemplo.com">suporte@exemplo.com</a> | +123 456 789</p>
     </div>
   </footer>
 
@@ -417,378 +413,792 @@
   <script>
     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
     const socket = io();
-    let selectedRequest = null;
+    const alertContainer = document.getElementById('alertContainer');
+    const forwardedMessagesBox = document.getElementById('forwardedMessagesBox');
+    const adminForwardedResponseInput = document.getElementById('adminForwardedResponseInput');
+    const sendForwardedResponse = document.getElementById('sendForwardedResponse');
 
-    if (!user || !user.id || !user.isAdmin) {
-      window.location.href = 'login.html';
-    }
-
-    function renderNavbar() {
-      const navLinks = document.getElementById('navLinks');
-      navLinks.innerHTML = `
-        <li class="nav-item"><a class="nav-link modern-nav-link active" href="admin.html">Admin</a></li>
-        <li class="nav-item"><button class="btn btn-outline-light modern-logout-btn" id="logoutBtn">Sair</button></li>
-      `;
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        sessionStorage.removeItem('user');
-        localStorage.removeItem('currentRequestId');
+    // Verificar se o usuário é administrador no backend
+    async function verifyAdmin() {
+      if (!user || !user.id) {
         window.location.href = 'login.html';
-      });
-    }
-
-    async function loadRequests() {
-      try {
-        const response = await fetch('/api/requests', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user })
-        });
-        if (!response.ok) throw new Error('Erro na requisição de solicitações: ' + response.statusText);
-        const requests = await response.json();
-        const tbody = document.getElementById('requestsTable');
-        tbody.innerHTML = '';
-        if (requests.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="8">Nenhuma solicitação pendente.</td></tr>';
-        } else {
-          requests.forEach(req => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${req.id}</td>
-              <td>${req.clientUsername || req.nome}</td>
-              <td>${req.produto}</td>
-              <td>${req.problema}</td>
-              <td>${req.status}</td>
-              <td>${req.technicianName || 'Não atribuído'}</td>
-              <td>${req.scheduledVisit ? new Date(req.scheduledVisit).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' }) : 'Não agendada'}</td>
-              <td>
-                <button class="btn btn-success btn-sm" onclick="openRespondModal('${req.id}', ${JSON.stringify(req)})">Responder</button>
-              </td>
-            `;
-            tbody.appendChild(tr);
-          });
-        }
-      } catch (error) {
-        console.error('Erro ao carregar solicitações:', error);
-        document.getElementById('requestsTable').innerHTML = '<tr><td colspan="8">Erro ao carregar solicitações. Verifique o console.</td></tr>';
+        return;
       }
-    }
-
-    async function loadTechnicians() {
-      try {
-        const response = await fetch('/api/technicians', {
-          headers: { 'x-user': JSON.stringify(user) }
-        });
-        if (!response.ok) throw new Error('Erro na requisição de técnicos: ' + response.statusText);
-        const technicians = await response.json();
-        const select = document.getElementById('technicianSelect');
-        const respondSelect = document.getElementById('respondTechnician');
-        select.innerHTML = '<option value="" disabled selected>Selecione um técnico</option>';
-        respondSelect.innerHTML = '<option value="">Nenhum</option>';
-        technicians.forEach(tech => {
-          select.innerHTML += `<option value="${tech.id}">${tech.name} (${tech.availability ? 'Disponível' : 'Ocupado'})</option>`;
-          respondSelect.innerHTML += `<option value="${tech.id}">${tech.name} (${tech.availability ? 'Disponível' : 'Ocupado'})</option>`;
-        });
-      } catch (error) {
-        console.error('Erro ao carregar técnicos:', error);
-        document.getElementById('technicianSelect').innerHTML = '<option>Erro ao carregar técnicos</option>';
-        document.getElementById('respondTechnician').innerHTML = '<option>Erro ao carregar técnicos</option>';
-      }
-    }
-
-    async function openRespondModal(requestId, request) {
-      selectedRequest = request;
-      await loadTechnicians();
-      document.getElementById('respondStatus').value = request.status || 'pending';
-      document.getElementById('respondTechnician').value = request.technicianId || '';
-      document.getElementById('respondScheduledVisit').value = request.scheduledVisit ? new Date(request.scheduledVisit).toISOString().slice(0, 16) : '';
-      const modal = new bootstrap.Modal(document.getElementById('respondModal'));
-      modal.show();
-    }
-
-    async function saveResponse() {
-      if (!selectedRequest) return;
-      const status = document.getElementById('respondStatus').value;
-      const technicianId = document.getElementById('respondTechnician').value || null;
-      const scheduledVisit = document.getElementById('respondScheduledVisit').value || null;
-
-      try {
-        const response = await fetch('/api/respond-request', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user, requestId: selectedRequest.id, status, technicianId, scheduledVisit })
-        });
-        if (!response.ok) throw new Error('Erro ao responder solicitação: ' + response.statusText);
-        const result = await response.json();
-        alert(result.message);
-        const modal = bootstrap.Modal.getInstance(document.getElementById('respondModal'));
-        modal.hide();
-        await loadRequests();
-        await viewRequest(selectedRequest.id, { ...selectedRequest, status, technicianId, scheduledVisit });
-      } catch (error) {
-        console.error('Erro ao salvar resposta:', error);
-        alert('Erro ao salvar resposta. Verifique o console.');
-      }
-    }
-
-    async function viewRequest(requestId, request) {
-      selectedRequest = request;
-      const details = document.getElementById('requestDetails');
-      const chatHistory = document.getElementById('chatHistorySection');
-      const adminChat = document.getElementById('adminChatSection');
-      const assignSection = document.getElementById('assignTechnicianSection');
-
-      details.classList.remove('hidden');
-      details.classList.add('visible');
-      chatHistory.classList.remove('hidden');
-      chatHistory.classList.add('visible');
-      adminChat.classList.remove('hidden');
-      adminChat.classList.add('visible');
-      assignSection.classList.remove('hidden');
-      assignSection.classList.add('visible');
-
-      document.getElementById('detailNome').textContent = request.nome || 'Não informado';
-      document.getElementById('detailEmail').textContent = request.email || 'Não informado';
-      document.getElementById('detailIdade').textContent = request.idade || 'Não informado';
-      document.getElementById('detailSexo').textContent = request.sexo || 'Não informado';
-      document.getElementById('detailBairro').textContent = request.bairro || 'Não informado';
-      document.getElementById('detailNumeroCasa').textContent = request.numeroCasa || 'Não informado';
-      document.getElementById('detailCelular').textContent = request.celular || 'Não informado';
-      document.getElementById('detailProduto').textContent = request.produto || 'Não informado';
-      document.getElementById('detailProblema').textContent = request.problema || 'Não informado';
-      document.getElementById('detailStatus').textContent = request.status || 'Não informado';
-      document.getElementById('detailTechnician').textContent = request.technicianName || 'Não atribuído';
-      document.getElementById('detailScheduledVisit').textContent = request.scheduledVisit ? new Date(request.scheduledVisit).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' }) : 'Não agendada';
-
-      try {
-        const chatResponse = await fetch(`/api/chat-history/${requestId}`, {
-          headers: { 'x-user': JSON.stringify(user) }
-        });
-        if (!chatResponse.ok) throw new Error('Erro na requisição de histórico: ' + chatResponse.statusText);
-        const chatHistoryData = await chatResponse.json();
-        const chatBox = document.getElementById('chatHistoryBox');
-        chatBox.innerHTML = '';
-        if (chatHistoryData.length === 0) {
-          chatBox.innerHTML = '<p>Nenhum histórico disponível.</p>';
-        } else {
-          chatHistoryData.forEach(msg => {
-            const div = document.createElement('div');
-            const isSent = msg.sender === 'admin';
-            const senderName = msg.sender === 'bot' ? 'Bot de Suporte' : (msg.sender === 'admin' ? 'Admin' : 'Cliente');
-            div.className = `message ${isSent ? 'sent' : 'received'}`;
-            div.innerHTML = `
-              <span class="message-sender">${senderName}</span>
-              ${msg.message}
-              <small class="message-time">${new Date(msg.timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
-            `;
-            chatBox.appendChild(div);
-          });
-        }
-        chatBox.scrollTop = chatBox.scrollHeight;
-      } catch (error) {
-        console.error('Erro ao carregar histórico:', error);
-        document.getElementById('chatHistoryBox').innerHTML = '<p>Erro ao carregar histórico. Verifique o console.</p>';
-      }
-
-      document.getElementById('adminChatBox').innerHTML = '';
-      socket.emit('setUserId', user.id, (data) => {
-        console.log('Socket ID definido:', data.userId);
-      });
-    }
-
-    function addMessage({ from, message, timestamp, userId, username, targetUserId }) {
-      if (targetUserId && targetUserId !== selectedRequest.userId) return;
-
-      const chatBox = document.getElementById('adminChatBox');
-      const div = document.createElement('div');
-      const isSent = from === 'admin';
-      const senderName = from === 'bot' ? 'Bot de Suporte' : (from === 'admin' ? 'Admin' : (username || 'Cliente'));
-      div.className = `message ${isSent ? 'sent' : 'received'}`;
-      div.innerHTML = `
-        <span class="message-sender">${senderName}</span>
-        ${message}
-        <small class="message-time">${new Date(timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
-      `;
-      chatBox.appendChild(div);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    socket.on('alertAdmin', (data) => {
-      const alertBox = document.getElementById('alertBox');
-      const alert = document.createElement('div');
-      alert.className = 'alert alert-warning alert-dismissible fade show';
-      alert.innerHTML = `
-        ${data.message} (Solicitação: ${data.requestId})
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      `;
-      alertBox.appendChild(alert);
-      loadRequests();
-    });
-
-    socket.on('privateMessage', (data) => {
-      if (selectedRequest && data.userId === selectedRequest.userId) {
-        addMessage(data);
-      }
-    });
-
-    const adminChatForm = document.getElementById('adminChatForm');
-    if (adminChatForm) {
-      adminChatForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const messageInput = document.getElementById('adminChatMessage');
-        const message = messageInput.value.trim();
-        if (!message || !selectedRequest) return;
-        const data = {
-          from: 'admin',
-          message,
-          userId: user.id,
-          username: user.username,
-          targetUserId: selectedRequest.userId,
-          requestId: selectedRequest.id,
-          timestamp: new Date().toISOString()
-        };
-        socket.emit('privateMessage', data);
-        addMessage(data);
-        messageInput.value = '';
-      });
-    }
-
-    document.getElementById('requestInfoBtn').addEventListener('click', () => {
-      if (selectedRequest) {
-        const message = prompt('Digite a solicitação de informações adicionais:');
-        if (message) {
-          socket.emit('requestInfo', {
-            requestId: selectedRequest.id,
-            userId: selectedRequest.userId,
-            message
-          });
-        }
-      }
-    });
-
-    document.getElementById('assignBtn').addEventListener('click', () => {
-      if (selectedRequest) {
-        const technicianId = document.getElementById('technicianSelect').value;
-        const visitDateTime = document.getElementById('visitDateTime').value;
-        if (technicianId) {
-          fetch('/api/assign-technician', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user, requestId: selectedRequest.id, technicianId, scheduledVisit: visitDateTime })
-          })
-            .then(response => response.json())
-            .then(result => {
-              alert(result.message);
-              loadRequests();
-              viewRequest(selectedRequest.id, selectedRequest);
-            })
-            .catch(error => {
-              console.error('Erro ao designar técnico:', error);
-              alert('Erro ao designar técnico. Verifique o console.');
-            });
-        } else {
-          alert('Selecione um técnico!');
-        }
-      }
-    });
-
-    document.getElementById('saveResponseBtn').addEventListener('click', saveResponse);
-
-    document.getElementById('addTechnicianForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('techName').value;
-      const email = document.getElementById('techEmail').value;
-      const phone = document.getElementById('techPhone').value;
-      try {
-        const response = await fetch('/api/add-technician', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-user': JSON.stringify(user) },
-          body: JSON.stringify({ name, email, phone })
-        });
-        if (!response.ok) throw new Error('Erro ao adicionar técnico: ' + response.statusText);
-        const result = await response.json();
-        alert(result.message);
-        document.getElementById('addTechnicianForm').reset();
-        loadTechnicians();
-      } catch (error) {
-        console.error('Erro ao adicionar técnico:', error);
-        alert('Erro ao adicionar técnico. Verifique o console.');
-      }
-    });
-
-    document.getElementById('addAdminForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('adminUsername').value;
-      const email = document.getElementById('adminEmail').value;
-      const password = document.getElementById('adminPassword').value;
-      try {
-        const response = await fetch('/api/auth/register-admin', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-user': JSON.stringify(user) },
-          body: JSON.stringify({ username, email, password })
-        });
-        if (!response.ok) throw new Error('Erro ao adicionar administrador: ' + response.statusText);
-        const result = await response.json();
-        alert(result.message);
-        document.getElementById('addAdminForm').reset();
-        loadUsers();
-      } catch (error) {
-        console.error('Erro ao adicionar administrador:', error);
-        alert('Erro ao adicionar administrador. Verifique o console.');
-      }
-    });
-
-    async function loadUsers() {
       try {
         const response = await fetch('/api/users', {
           headers: { 'x-user': JSON.stringify(user) }
         });
-        if (!response.ok) throw new Error('Erro ao listar usuários: ' + response.statusText);
+        if (!response.ok) {
+          throw new Error('Falha ao verificar administrador');
+        }
         const users = await response.json();
-        const tbody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
-        tbody.innerHTML = '';
-        if (users.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="5">Nenhum usuário encontrado.</td></tr>';
-        } else {
-          users.forEach(user => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${user.id}</td>
-              <td>${user.username}</td>
-              <td>${user.email}</td>
-              <td>${user.isAdmin ? 'Sim' : 'Não'}</td>
-              <td>
-                <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">Excluir</button>
-              </td>
-            `;
-            tbody.appendChild(tr);
-          });
+        const currentUser = users.find(u => u.id === user.id);
+        if (!currentUser || !currentUser.isAdmin) {
+          sessionStorage.removeItem('user');
+          window.location.href = 'index.html';
         }
       } catch (error) {
-        console.error('Erro ao carregar usuários:', error);
-        const tbody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
-        tbody.innerHTML = '<tr><td colspan="5">Erro ao carregar usuários. Verifique o console.</td></tr>';
+        console.error('Erro ao verificar administrador:', error);
+        window.location.href = 'login.html';
       }
     }
 
-    async function deleteUser(userId) {
-      if (confirm('Tem certeza que deseja excluir este usuário?')) {
-        try {
-          const response = await fetch(`/api/users/${userId}`, {
-            method: 'DELETE',
-            headers: { 'x-user': JSON.stringify(user) }
+    // Executar verificação ao carregar a página
+    verifyAdmin();
+
+    socket.emit('setUserId', user.id, (data) => {
+      console.log('Socket ID definido:', data.userId);
+    });
+
+    // Inicializar toggles
+    document.querySelectorAll('.toggle-section').forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.toggleTarget;
+        const target = document.getElementById(targetId);
+        const collapse = new bootstrap.Collapse(target, { toggle: true });
+      });
+    });
+
+    // Carregar solicitações pendentes
+    async function loadRequests() {
+      try {
+        console.log('Carregando solicitações pendentes...');
+        console.log('Usuário atual:', user);
+        const response = await fetch('/api/requests', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-user': JSON.stringify(user)
+          }
+        });
+
+        console.log('Status da resposta:', response.status);
+        if (!response.ok) {
+          throw new Error(`Erro HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Solicitações recebidas:', data);
+
+        const requestsTableBody = document.getElementById('requestsTableBody');
+        const clientsTableBody = document.getElementById('clientsTableBody');
+        const unresolvedTableBody = document.getElementById('unresolvedTableBody');
+        const requestSelect = document.getElementById('requestSelect');
+
+        requestsTableBody.innerHTML = '';
+        clientsTableBody.innerHTML = '';
+        unresolvedTableBody.innerHTML = '';
+        requestSelect.innerHTML = '<option value="">Selecione uma solicitação</option>';
+
+        if (data.length === 0) {
+          requestsTableBody.innerHTML = '<tr><td colspan="7" class="text-center">Nenhuma solicitação pendente.</td></tr>';
+          unresolvedTableBody.innerHTML = '<tr><td colspan="6" class="text-center">Nenhum problema não resolvido.</td></tr>';
+          return;
+        }
+
+        data.forEach(request => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${request.id}</td>
+            <td>${request.clientUsername}</td>
+            <td>${request.produto}</td>
+            <td>${request.problema}</td>
+            <td>${new Date(request.createdAt).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' })}</td>
+            <td>${request.status}</td>
+            <td>
+              <button class="btn btn-info btn-sm view-chat-btn" data-request-id="${request.id}" data-user-id="${request.userId}">Ver Chat</button>
+            </td>
+          `;
+          if (request.status === 'pending') {
+            requestsTableBody.appendChild(row);
+          }
+          if (request.status === 'needs_admin') {
+            unresolvedTableBody.appendChild(row.cloneNode(true));
+          }
+
+          const clientRow = document.createElement('tr');
+          clientRow.innerHTML = `
+            <td>${request.nome}</td>
+            <td>${request.email}</td>
+            <td>${request.idade || 'N/A'}</td>
+            <td>${request.sexo || 'N/A'}</td>
+            <td>${request.bairro || 'N/A'}</td>
+            <td>${request.numeroCasa || 'N/A'}</td>
+            <td>${request.celular || 'N/A'}</td>
+          `;
+          clientsTableBody.appendChild(clientRow);
+
+          const option = document.createElement('option');
+          option.value = request.id;
+          option.dataset.userId = request.userId;
+          option.textContent = `Solicitação ${request.id} - ${request.clientUsername}`;
+          requestSelect.appendChild(option);
+        });
+
+        console.log('Tabelas atualizadas com sucesso.');
+      } catch (error) {
+        console.error('Erro ao carregar solicitações:', error.message, error.stack);
+        alertContainer.innerHTML = `
+          <div class="alert alert-danger modern-alert" role="alert">
+            Erro ao carregar solicitações: ${error.message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        `;
+      }
+    }
+
+    // Carregar técnicos disponíveis
+    function loadTechnicians() {
+      fetch('/api/technicians', {
+        headers: { 'x-user': JSON.stringify(user) }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const technicianSelect = document.getElementById('technicianSelect');
+          const techniciansTableBody = document.getElementById('techniciansTableBody');
+          technicianSelect.innerHTML = '<option value="">Selecione um técnico</option>';
+          techniciansTableBody.innerHTML = '';
+
+          data.forEach(tech => {
+            const option = document.createElement('option');
+            option.value = tech.id;
+            option.textContent = tech.name;
+            technicianSelect.appendChild(option);
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${tech.id}</td>
+              <td>${tech.name}</td>
+              <td>${tech.email}</td>
+              <td>${tech.phone}</td>
+              <td>${tech.specialty || 'Geral'}</td>
+              <td>
+                <button class="btn btn-warning btn-sm edit-technician-btn" data-id="${tech.id}" data-name="${tech.name}" data-email="${tech.email}" data-phone="${tech.phone}" data-specialty="${tech.specialty || 'Geral'}">Editar</button>
+                <button class="btn btn-danger btn-sm delete-technician-btn" data-id="${tech.id}">Excluir</button>
+              </td>
+            `;
+            techniciansTableBody.appendChild(row);
           });
-          if (!response.ok) throw new Error('Erro ao excluir usuário: ' + response.statusText);
-          const result = await response.json();
-          alert(result.message);
+        })
+        .catch(error => {
+          console.error('Erro ao carregar técnicos:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao carregar técnicos: ${error.message}
+            </div>
+          `;
+        });
+    }
+
+    // Carregar usuários
+    function loadUsers() {
+      fetch('/api/users', {
+        headers: { 'x-user': JSON.stringify(user) }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const usersTableBody = document.getElementById('usersTableBody');
+          usersTableBody.innerHTML = '';
+          data.forEach(u => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${u.id}</td>
+              <td>${u.username}</td>
+              <td>${u.email}</td>
+              <td>${u.isAdmin ? 'Sim' : 'Não'}</td>
+              <td>
+                <button class="btn btn-warning btn-sm edit-user-btn" data-id="${u.id}" data-username="${u.username}" data-email="${u.email}" data-isadmin="${u.isAdmin}">Editar</button>
+                <button class="btn btn-danger btn-sm delete-user-btn" data-id="${u.id}">Excluir</button>
+              </td>
+            `;
+            usersTableBody.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Erro ao carregar usuários:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao carregar usuários: ${error.message}
+            </div>
+          `;
+        });
+    }
+
+    // Adicionar administrador
+    document.getElementById('addAdminForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('adminUsername').value.trim();
+      const email = document.getElementById('adminEmail').value.trim();
+      const password = document.getElementById('adminPassword').value.trim();
+
+      if (!username || !email || !password) {
+        alertContainer.innerHTML = `
+          <div class="alert alert-warning modern-alert" role="alert">
+            Por favor, preencha todos os campos.
+          </div>
+        `;
+        return;
+      }
+
+      fetch('/api/auth/register-admin', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-user': JSON.stringify(user)
+        },
+        body: JSON.stringify({ username, email, password })
+      })
+        .then(response => response.json())
+        .then(data => {
+          alertContainer.innerHTML = `
+            <div class="alert alert-success modern-alert" role="alert">
+              ${data.message}
+            </div>
+          `;
+          document.getElementById('addAdminForm').reset();
           loadUsers();
-        } catch (error) {
-          console.error('Erro ao excluir usuário:', error);
-          alert('Erro ao excluir usuário. Verifique o console.');
+        })
+        .catch(error => {
+          console.error('Erro ao adicionar administrador:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao adicionar administrador: ${error.message}
+            </div>
+          `;
+        });
+    });
+
+    // Adicionar técnico
+    document.getElementById('addTechnicianForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('technicianName').value.trim();
+      const email = document.getElementById('technicianEmail').value.trim();
+      const phone = document.getElementById('technicianPhone').value.trim();
+      const specialty = document.getElementById('technicianSpecialty').value.trim();
+
+      if (!name || !email || !phone || !specialty) {
+        alertContainer.innerHTML = `
+          <div class="alert alert-warning modern-alert" role="alert">
+            Por favor, preencha todos os campos.
+          </div>
+        `;
+        return;
+      }
+
+      fetch('/api/add-technician', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-user': JSON.stringify(user)
+        },
+        body: JSON.stringify({ name, email, phone, specialty })
+      })
+        .then(response => response.json())
+        .then(data => {
+          alertContainer.innerHTML = `
+            <div class="alert alert-success modern-alert" role="alert">
+              ${data.message}
+            </div>
+          `;
+          document.getElementById('addTechnicianForm').reset();
+          loadTechnicians();
+        })
+        .catch(error => {
+          console.error('Erro ao adicionar técnico:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao adicionar técnico: ${error.message}
+            </div>
+          `;
+        });
+    });
+
+    // Designar técnico
+    document.getElementById('assignTechnicianForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const requestId = document.getElementById('requestSelect').value;
+      const technicianId = document.getElementById('technicianSelect').value;
+      const scheduledVisit = document.getElementById('scheduledVisit').value;
+
+      fetch('/api/assign-technician', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user, requestId, technicianId, scheduledVisit })
+      })
+        .then(response => response.json())
+        .then(data => {
+          alertContainer.innerHTML = `
+            <div class="alert alert-success modern-alert" role="alert">
+              ${data.message}
+            </div>
+          `;
+          loadRequests();
+          loadTechnicians();
+        })
+        .catch(error => {
+          console.error('Erro ao designar técnico:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao designar técnico: ${error.message}
+            </div>
+          `;
+        });
+    });
+
+    // Editar usuário
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('edit-user-btn')) {
+        const id = e.target.dataset.id;
+        const username = e.target.dataset.username;
+        const email = e.target.dataset.email;
+        const isAdmin = e.target.dataset.isadmin;
+
+        document.getElementById('editUserId').value = id;
+        document.getElementById('editUsername').value = username;
+        document.getElementById('editEmail').value = email;
+        document.getElementById('editIsAdmin').value = isAdmin;
+        document.getElementById('editPassword').value = '';
+
+        const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        modal.show();
+      }
+    });
+
+    document.getElementById('editUserForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editUserId').value;
+      const username = document.getElementById('editUsername').value.trim();
+      const email = document.getElementById('editEmail').value.trim();
+      const password = document.getElementById('editPassword').value.trim();
+      const isAdmin = document.getElementById('editIsAdmin').value;
+
+      if (!username || !email) {
+        alertContainer.innerHTML = `
+          <div class="alert alert-warning modern-alert" role="alert">
+            Por favor, preencha os campos obrigatórios.
+          </div>
+        `;
+        return;
+      }
+
+      const data = { id, username, email, isAdmin };
+      if (password) data.password = password;
+
+      console.log('Enviando dados para atualização:', data);
+      fetch('/api/users/update', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-user': JSON.stringify(user)
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          console.log('Resposta do servidor:', data);
+          alertContainer.innerHTML = `
+            <div class="alert alert-success modern-alert" role="alert">
+              ${data.message}
+            </div>
+          `;
+          bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+          loadUsers();
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar usuário:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao atualizar usuário: ${error.message}
+            </div>
+          `;
+        });
+    });
+
+    // Excluir usuário
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('delete-user-btn')) {
+        const id = e.target.dataset.id;
+        if (confirm('Tem certeza que deseja excluir este usuário?')) {
+          console.log('Enviando solicitação de exclusão para ID:', id);
+          fetch('/api/users/delete', {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'x-user': JSON.stringify(user)
+            },
+            body: JSON.stringify({ id })
+          })
+            .then(response => {
+              if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+              return response.json();
+            })
+            .then(data => {
+              console.log('Resposta do servidor:', data);
+              alertContainer.innerHTML = `
+                <div class="alert alert-success modern-alert" role="alert">
+                  ${data.message}
+                </div>
+              `;
+              loadUsers();
+            })
+            .catch(error => {
+              console.error('Erro ao excluir usuário:', error);
+              alertContainer.innerHTML = `
+                <div class="alert alert-danger modern-alert" role="alert">
+                  Erro ao excluir usuário: ${error.message}
+                </div>
+              `;
+            });
         }
       }
-    }
+    });
 
-    renderNavbar();
+    // Editar técnico
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('edit-technician-btn')) {
+        const id = e.target.dataset.id;
+        const name = e.target.dataset.name;
+        const email = e.target.dataset.email;
+        const phone = e.target.dataset.phone;
+        const specialty = e.target.dataset.specialty;
+
+        document.getElementById('editTechnicianId').value = id;
+        document.getElementById('editTechnicianName').value = name;
+        document.getElementById('editTechnicianEmail').value = email;
+        document.getElementById('editTechnicianPhone').value = phone;
+        document.getElementById('editTechnicianSpecialty').value = specialty;
+
+        const modal = new bootstrap.Modal(document.getElementById('editTechnicianModal'));
+        modal.show();
+      }
+    });
+
+    document.getElementById('editTechnicianForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editTechnicianId').value;
+      const name = document.getElementById('editTechnicianName').value.trim();
+      const email = document.getElementById('editTechnicianEmail').value.trim();
+      const phone = document.getElementById('editTechnicianPhone').value.trim();
+      const specialty = document.getElementById('editTechnicianSpecialty').value.trim();
+
+      if (!name || !email || !phone || !specialty) {
+        alertContainer.innerHTML = `
+          <div class="alert alert-warning modern-alert" role="alert">
+            Por favor, preencha todos os campos.
+          </div>
+        `;
+        return;
+      }
+
+      fetch('/api/add-technician', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'x-user': JSON.stringify(user)
+        },
+        body: JSON.stringify({ id, name, email, phone, specialty })
+      })
+        .then(response => {
+          if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          alertContainer.innerHTML = `
+            <div class="alert alert-success modern-alert" role="alert">
+              Técnico atualizado com sucesso
+            </div>
+          `;
+          bootstrap.Modal.getInstance(document.getElementById('editTechnicianModal')).hide();
+          loadTechnicians();
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar técnico:', error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao atualizar técnico: ${error.message}
+            </div>
+          `;
+        });
+    });
+
+    // Excluir técnico
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('delete-technician-btn')) {
+        const id = e.target.dataset.id;
+        if (confirm('Tem certeza que deseja excluir este técnico?')) {
+          fetch('/api/add-technician', {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'x-user': JSON.stringify(user)
+            },
+            body: JSON.stringify({ id, action: 'delete' })
+          })
+            .then(response => {
+              if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+              return response.json();
+            })
+            .then(data => {
+              alertContainer.innerHTML = `
+                <div class="alert alert-success modern-alert" role="alert">
+                  Técnico excluído com sucesso
+                </div>
+              `;
+              loadTechnicians();
+            })
+            .catch(error => {
+              console.error('Erro ao excluir técnico:', error);
+              alertContainer.innerHTML = `
+                <div class="alert alert-danger modern-alert" role="alert">
+                  Erro ao excluir técnico: ${error.message}
+                </div>
+              `;
+            });
+        }
+      }
+    });
+
+    // Ver histórico de chat
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('view-chat-btn')) {
+        const requestId = e.target.dataset.requestId;
+        const userId = e.target.dataset.userId;
+        fetch(`/api/chat-history/${requestId}`, {
+          headers: { 'x-user': JSON.stringify(user) }
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            const chatSection = document.getElementById('chatSection');
+            const chatHeader = document.getElementById('chatHeader');
+            const adminChatBox = document.getElementById('adminChatBox');
+            adminChatBox.innerHTML = '';
+            chatSection.style.display = 'block';
+            chatHeader.textContent = `Chat com o Cliente (Solicitação ${requestId})`;
+            chatSection.dataset.requestId = requestId;
+            chatSection.dataset.userId = userId;
+
+            const chatContent = document.getElementById('chat-content');
+            if (!chatContent.classList.contains('show')) {
+              new bootstrap.Collapse(chatContent, { toggle: true });
+            }
+
+            data.forEach(msg => {
+              const div = document.createElement('div');
+              const isSent = msg.sender === 'admin';
+              div.className = `chat-message ${isSent ? 'admin-response' : msg.sender === 'bot' ? 'bot-message' : 'received'}`;
+              div.innerHTML = `
+                <span class="message-sender">${msg.sender === 'bot' ? 'Bot de Suporte' : (msg.sender === 'admin' ? 'Admin' : 'Cliente')}</span>
+                ${msg.message}
+                <small class="chat-time">${new Date(msg.timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+              `;
+              adminChatBox.appendChild(div);
+            });
+            adminChatBox.scrollTop = adminChatBox.scrollHeight;
+          })
+          .catch(error => {
+            console.error('Erro ao carregar histórico do chat:', error);
+            alertContainer.innerHTML = `
+              <div class="alert alert-danger modern-alert" role="alert">
+                Erro ao carregar histórico do chat: ${error.message}
+              </div>
+            `;
+          });
+      }
+    });
+
+    // Enviar mensagem no chat
+    document.getElementById('adminChatForm').addEventListener('submit', (e) => {
+      e.preventDefault(); // Impede o recarregamento da página
+      const messageInput = document.getElementById('adminMessageInput');
+      const message = messageInput.value.trim();
+      if (!message) return;
+
+      const chatSection = document.getElementById('chatSection');
+      if (!chatSection.dataset.requestId || !chatSection.dataset.userId) {
+        alertContainer.innerHTML = `
+          <div class="alert alert-warning modern-alert" role="alert">
+            Selecione um chat antes de enviar a mensagem.
+          </div>`;
+        return;
+      }
+
+      const requestId = chatSection.dataset.requestId;
+      const targetUserId = chatSection.dataset.userId;
+
+      const data = {
+        from: 'admin',
+        message,
+        userId: user.id.toString(),
+        username: 'Admin',
+        targetUserId,
+        requestId,
+        timestamp: new Date().toISOString()
+      };
+      socket.emit('privateMessage', data, (response) => {
+        if (response.error) {
+          console.error('Erro ao enviar mensagem:', response.error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger modern-alert" role="alert">
+              Erro ao enviar mensagem: ${response.error}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+        } else {
+          console.log('Mensagem enviada com sucesso:', response);
+          const adminChatBox = document.getElementById('adminChatBox');
+          const div = document.createElement('div');
+          div.className = 'chat-message admin-response';
+          div.innerHTML = `
+            <span class="message-sender">Admin</span>
+            ${message}
+            <small class="chat-time">${new Date().toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+          `;
+          adminChatBox.appendChild(div);
+          adminChatBox.scrollTop = adminChatBox.scrollHeight;
+          messageInput.value = '';
+        }
+      });
+    });
+
+    // Receber mensagens no chat
+    socket.on('privateMessage', (data) => {
+      const chatSection = document.getElementById('chatSection');
+      const currentRequestId = chatSection.dataset.requestId;
+      if (data.requestId !== currentRequestId) return; // Exibir apenas mensagens do chat atual
+
+      const adminChatBox = document.getElementById('adminChatBox');
+      const div = document.createElement('div');
+      const isSent = data.from === 'admin';
+      div.className = `chat-message ${isSent ? 'admin-response' : data.from === 'bot' ? 'bot-message' : 'received'}`;
+      div.innerHTML = `
+        <span class="message-sender">${data.from === 'bot' ? 'Bot de Suporte' : (data.from === 'admin' ? 'Admin' : data.username)}</span>
+        ${data.message}
+        <small class="chat-time">${new Date(data.timestamp).toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+      `;
+      adminChatBox.appendChild(div);
+      adminChatBox.scrollTop = adminChatBox.scrollHeight;
+    });
+
+    // Solicitar mais informações
+    document.getElementById('requestMoreInfoBtn').addEventListener('click', () => {
+      const chatSection = document.getElementById('chatSection');
+      const requestId = chatSection.dataset.requestId;
+      const userId = chatSection.dataset.userId;
+      const message = prompt('Digite a solicitação de mais informações:');
+      if (message) {
+        socket.emit('requestInfo', { requestId, userId, message });
+        const adminChatBox = document.getElementById('adminChatBox');
+        const div = document.createElement('div');
+        div.className = 'chat-message admin-response';
+        div.innerHTML = `
+          <span class="message-sender">Admin</span>
+          Solicitação de mais informações: ${message}
+          <small class="chat-time">${new Date().toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+        `;
+        adminChatBox.appendChild(div);
+        adminChatBox.scrollTop = adminChatBox.scrollHeight;
+      }
+    });
+
+    // Agendar visita
+    document.getElementById('scheduleVisitBtn').addEventListener('click', () => {
+      const chatSection = document.getElementById('chatSection');
+      const requestId = chatSection.dataset.requestId;
+      const userId = chatSection.dataset.userId;
+      const dateTime = document.getElementById('scheduleVisitInput').value;
+      if (!dateTime) {
+        alertContainer.innerHTML = `
+          <div class="alert alert-warning modern-alert" role="alert">
+            Por favor, selecione uma data e hora para a visita.
+          </div>
+        `;
+        return;
+      }
+      socket.emit('scheduleVisit', { requestId, userId, dateTime });
+      alertContainer.innerHTML = `
+        <div class="alert alert-success modern-alert" role="alert">
+          Visita agendada para ${new Date(dateTime).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' })}
+        </div>
+      `;
+      const adminChatBox = document.getElementById('adminChatBox');
+      const div = document.createElement('div');
+      div.className = 'chat-message admin-response';
+      div.innerHTML = `
+        <span class="message-sender">Admin</span>
+        Visita agendada para ${new Date(dateTime).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' })}
+        <small class="chat-time">${new Date().toLocaleTimeString('pt-BR', { timeZone: 'Africa/Lusaka' })}</small>
+      `;
+      adminChatBox.appendChild(div);
+      adminChatBox.scrollTop = adminChatBox.scrollHeight;
+    });
+
+    // Notificação de nova solicitação
+    socket.on('newRequest', (request) => {
+      alertContainer.innerHTML = `
+        <div class="alert alert-info modern-alert alert-dismissible fade show" role="alert">
+          Nova solicitação recebida: ID ${request.id} - ${request.clientUsername}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
+      loadRequests();
+    });
+
+    // Receber mensagens reencaminhadas
+    socket.on('forwardedMessage', (data) => {
+      const messageElement = document.createElement('div');
+      messageElement.className = 'chat-message received';
+      messageElement.innerHTML = `
+        ${data.username} (ID: ${data.userId}): ${data.message} [${new Date(data.timestamp).toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' })}]
+      `;
+      forwardedMessagesBox.appendChild(messageElement);
+      forwardedMessagesBox.scrollTop = forwardedMessagesBox.scrollHeight;
+    });
+
+    // Enviar resposta às mensagens reencaminhadas
+    sendForwardedResponse.addEventListener('click', () => {
+      const response = adminForwardedResponseInput.value.trim();
+      if (response) {
+        const lastMessage = forwardedMessagesBox.lastChild;
+        if (lastMessage) {
+          const userIdMatch = lastMessage.textContent.match(/ID: (\d+)/);
+          if (userIdMatch) {
+            const userId = userIdMatch[1];
+            socket.emit('adminResponse', { userId, message: response, adminUsername: user.username, timestamp: new Date().toISOString() });
+            const responseElement = document.createElement('div');
+            responseElement.className = 'chat-message admin-response';
+            responseElement.textContent = `Admin (${user.username}): ${response} [${new Date().toLocaleString('pt-BR', { timeZone: 'Africa/Lusaka' })}]`;
+            forwardedMessagesBox.appendChild(responseElement);
+            forwardedMessagesBox.scrollTop = forwardedMessagesBox.scrollHeight;
+            adminForwardedResponseInput.value = '';
+          }
+        }
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem('user');
+      window.location.href = 'login.html';
+    });
+
+    // Carregar dados iniciais
     loadRequests();
     loadTechnicians();
     loadUsers();
